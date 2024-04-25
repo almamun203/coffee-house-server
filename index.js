@@ -33,6 +33,7 @@ async function run() {
     await client.connect();
 
    const coffeeCollection = client.db('coffeeDB').collection('coffee');
+   const userCollection = client.db('coffeeDB').collection('user');
 
     app.get('/coffee',async(req,res)=>{
       const cursor = coffeeCollection.find();
@@ -77,6 +78,15 @@ async function run() {
       const result = await coffeeCollection.deleteOne(query)
       res.send(result);
     })
+       
+    // USER OPERATION
+
+    app.post('/user',async(req,res)=>{
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    })
+    
 
 
 
